@@ -38,7 +38,7 @@
             <td>{{ $transaction->txCustEmail }}</td>
             <td>{{ $transaction->txComments }}</td>
             <td>
-                <form action="{{ route('transactions.destroy',$transaction->txID) }}" method="POST">
+                <form action="{{ route('transactions.destroy',$transaction->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('transactions.show',$transaction->id) }}">Show</a>
                     <a class="btn btn-primary" href="{{ route('transactions.edit',$transaction->id) }}">Edit</a>
                     @csrf

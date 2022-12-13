@@ -74,7 +74,7 @@ class TxController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        //
+        return view('transactions.edit', compact('transaction'));
     }
 
     /**
@@ -86,7 +86,19 @@ class TxController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        //
+        $request->validate([
+            'txID' => 'required|alpha_num|starts_with:TX|max:16',
+            'txDate' => 'required',
+            'txPayMethod' => 'required',
+            'txCustEmail' => 'required|email',
+            'txComments' => 'required'
+        ]);
+
+        //create a new transaction
+        $transaction->update($request->all());
+
+        //redirect the user and send message
+        return redirect()->route('transactions.index')->with('success','Transaction updated successfully');
     }
 
     /**
@@ -97,6 +109,10 @@ class TxController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        //delete the transaction
+        $transaction->delete();
+
+        //redirect the user and display success message 
+        return redirect()->route('transactions.index')->with('success','Transaction deleted successfully');
     }
 }
