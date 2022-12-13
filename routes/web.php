@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TxController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::resource('transactions', TxController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/index', [TxController::class, 'index'])->name('transaction.index');
+    Route::get('/create', [TxController::class, 'create'])->name('transaction.create');
+    Route::get('/store', [TxController::class, 'store'])->name('transaction.store');    
+    Route::get('/show', [TxController::class, 'show'])->name('transaction.show');
+    Route::get('/edit', [TxController::class, 'edit'])->name('transaction.edit');
+    Route::get('/update', [TxController::class, 'update'])->name('transaction.update');
+    Route::get('/destroy', [TxController::class, 'destroy'])->name('transaction.destroy');
+});
+
+require __DIR__.'/auth.php';

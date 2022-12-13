@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('txID');
             $table->date('txDate');
             $table->string('txPayMethod');
-            $table->string('txCustEmail');
+            $table->text('txCustEmail');
             $table->text('txComments');
             $table->timestamps();
         });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class TxController extends Controller
 {
@@ -12,9 +13,15 @@ class TxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         //
+        $this->middleware('auth');
         $transactions = Transaction::latest()->paginate(10);
 
         return view('transactions.index', compact('transactions'))->with(request()->input('page'));
@@ -28,6 +35,7 @@ class TxController extends Controller
     public function create()
     {
         //
+        $this->middleware('auth');
         return view('transactions.create');
     }
 
@@ -41,7 +49,7 @@ class TxController extends Controller
     {
         //validate the input
         $request->validate([
-            'txID' => 'required|alpha_num|starts_with:TX|max:16',
+            'txID' => 'required|alpha_num|starts_with:TX|max:16|unique:transactions,txID',
             'txDate' => 'required',
             'txPayMethod' => 'required',
             'txCustEmail' => 'required|email',
@@ -49,6 +57,7 @@ class TxController extends Controller
         ]);
 
         //create a new transaction
+        $this->middleware('auth');
         Transaction::create($request->all());
 
         //redirect the user and send message
@@ -63,6 +72,7 @@ class TxController extends Controller
      */
     public function show(Transaction $transaction)
     {
+        $this->middleware('auth');
         return view('transactions.show', compact('transaction'));
     }
 
@@ -74,6 +84,7 @@ class TxController extends Controller
      */
     public function edit(Transaction $transaction)
     {
+        $this->middleware('auth');
         return view('transactions.edit', compact('transaction'));
     }
 
@@ -95,6 +106,7 @@ class TxController extends Controller
         ]);
 
         //create a new transaction
+        $this->middleware('auth');
         $transaction->update($request->all());
 
         //redirect the user and send message
@@ -110,6 +122,7 @@ class TxController extends Controller
     public function destroy(Transaction $transaction)
     {
         //delete the transaction
+        $this->middleware('auth');
         $transaction->delete();
 
         //redirect the user and display success message 

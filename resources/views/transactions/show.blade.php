@@ -8,7 +8,7 @@
             <h4>Show Transactions</h4>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{  route('transactions.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{  route('transaction.index') }}"> Back</a>
         </div>
     </div>
 </div>

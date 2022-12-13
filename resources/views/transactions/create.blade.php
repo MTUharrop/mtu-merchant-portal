@@ -12,7 +12,7 @@
         <h4>Upload new transaction details</h4><br>
     </div>
     <div class="pull-right">
-        <a class="btn btn-primary" href="{{  route('transactions.index') }}"> Back</a>
+        <a class="btn btn-primary" href="{{  route('transaction.index') }}"> Back</a>
     </div>
 </div>
 
@@ -27,7 +27,7 @@
     </div>
 @endif
 
-<form action="{{  route('transactions.store') }}" method="POST">
+<form action="{{  route('transaction.store') }}" method="POST">
     @csrf
 
     <div class="row">
@@ -41,7 +41,7 @@
             <div class="form-group">
                 <strong>Transaction Date *</strong>
                 <input type="date" name="txDate" class="form-control datetimepicker" value="" placeholder="Transaction Date"><br><br>
-                <script>
+                <script nonce="{{ csp_nonce() }}">
                     $(function () {
                         $('.datetimepicker').datetimepicker();
                     });

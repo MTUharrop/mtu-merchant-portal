@@ -8,7 +8,7 @@
             <h4>Saved Transactions</h4>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{  route('transactions.create') }}"> Enter new Transaction</a>
+            <a class="btn btn-success" href="{{  route('transaction.create') }}"> Enter new Transaction</a>
         </div>
     </div>
 </div>
@@ -38,9 +38,9 @@
             <td>{{ $transaction->txCustEmail }}</td>
             <td>{{ $transaction->txComments }}</td>
             <td>
-                <form action="{{ route('transactions.destroy',$transaction->id) }}" method="POST">
-                    <a class="btn btn-info" href="{{ route('transactions.show',$transaction->id) }}">Show</a>
-                    <a class="btn btn-primary" href="{{ route('transactions.edit',$transaction->id) }}">Edit</a>
+                <form action="{{ route('transaction.destroy',$transaction->id) }}" method="POST">
+                    <a class="btn btn-info" href="{{ route('transaction.show',$transaction->id) }}">Show</a>
+                    <a class="btn btn-primary" href="{{ route('transaction.edit',$transaction->id) }}">Edit</a>
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>

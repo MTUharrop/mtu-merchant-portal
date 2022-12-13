@@ -16,4 +16,24 @@ class Transaction extends Model
         'txCustEmail',
         'txComments'
     ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'txCustEmail',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'txCustEmail' => 'encrypted',
+        'txDate' => 'datetime',
+    ];
+
 }

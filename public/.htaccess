@@ -19,3 +19,17 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# Security Headers
+#Header set Content-Security-Policy "default-src 'self'"
+Header always set Content-Security-Policy "upgrade-insecure-requests;"
+Header set Strict-Transport-Security "max-age=31536000;includeSubDomains;"
+Header always set X-Frame-Options SAMEORIGIN
+Header set X-XSS-Protection "1; mode=block"
+Header set X-Content-Type-Options: nosniff
+Header set Referrer-Policy: strict-origin-when-cross-origin
+Header set Access-Control-Allow-Origin: https://localhost/mtu-merchant-portal
+#Header set HTTP Cross-Origin-Opener-Policy: unsafe-none
+#Header set Cross-Origin-Resource-Policy: cross-origin
+#Header set Cross-Origin-Embedder-Policy: require-corp
+Header set Permissions-Policy: interest-cohort=()

@@ -7,7 +7,7 @@
         <h4>Edit Transaction</h4><br>
     </div>
     <div class="pull-right">
-        <a class="btn btn-primary" href="{{  route('transactions.index') }}"> Back</a>
+        <a class="btn btn-primary" href="{{  route('transaction.index') }}"> Back</a>
     </div>
 </div>
 
@@ -37,7 +37,7 @@
             <div class="form-group">
                 <strong>Transaction Date *</strong>
                 <input type="date" name="txDate" class="form-control datetimepicker" value={{ $transaction->txDate }} placeholder="Transaction Date"><br><br>
-                <script>
+                <script nonce="{{ csp_nonce() }}">
                     $(function () {
                         $('.datetimepicker').datetimepicker();
                     });
