@@ -27,13 +27,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
-        Password::defaults(function() {
+       /* Password::defaults(function() {
             return Password::min(size:16)
             ->letters()
             ->numbers()
             ->symbols()
             ->mixedcase()
             ->uncompromised();
-        });
+        });*/
     }
 }
