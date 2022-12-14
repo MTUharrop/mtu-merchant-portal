@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TxController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,5 +36,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/update', [TxController::class, 'update'])->name('transaction.update');
     Route::get('/destroy', [TxController::class, 'destroy'])->name('transaction.destroy');
 });
+
+//Google
+Route::get('/login/google', [AuthenticatedSessionController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('/login/google/callback', [AuthenticatedSessionController::class, 'handleGoogleCallback']);
 
 require __DIR__.'/auth.php';

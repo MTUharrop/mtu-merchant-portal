@@ -7,6 +7,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -51,4 +53,32 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    protected function _registerOrLoginUser($data)
+    {
+        $user = User::where('email',$data->email)->first();
+          if(!$user){
+             $user = new User();
+             $user->name = $data->name;
+             $user->email = $data->email;
+             $user->google_id = $data->id;
+             $user->save();
+          }
+        Auth::login($user);
+    }
+
+    //Google Login
+    public function redirectToGoogle(){
+    return Socialite::driver('google')->stateless()->redirect();
+    }
+    
+    //Google callback  
+    public function handleGoogleCallback(){
+    
+    $user = Socialite::driver('google')->stateless()->user();
+    
+      $this->_registerorLoginUser($user);
+      return redirect()->route('home');
+    }
+        
 }
